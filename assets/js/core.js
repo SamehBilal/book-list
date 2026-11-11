@@ -51,7 +51,9 @@
 		var src = App.cover(b, size);
 		return '<span class="cover ' + (cls || '') + '" style="--h:' + App.hue(b.title) + '">' +
 			'<span class="cover-t">' + App.esc(b.title) + (b.authors && b.authors.length ? '<small>' + App.esc(b.authors[0]) + '</small>' : '') + '</span>' +
-			(src ? '<img src="' + App.esc(src) + '" alt="" loading="lazy" decoding="async" onerror="this.remove()">' : '') + '</span>';
+			(src ? '<img src="' + App.esc(src) + '" alt="" loading="lazy" decoding="async" onerror="this.remove()"' +
+				/* Internet Archive answers an item with no picture with its own (square) logo: then the drawn cover stays */
+				(/archive\.org/.test(src) ? ' onload="if(this.naturalWidth>=this.naturalHeight*.92)this.remove()"' : '') + '>' : '') + '</span>';
 	};
 
 	/* ---------- a book's place: «Hall 2 · B14», or the bookshop's name ---------- */

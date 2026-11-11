@@ -10,6 +10,6 @@ http.createServer(function (req, res) {
 	if (p.endsWith('/')) p += 'index.html';
 	var f = path.join(root, p);
 	if (!f.startsWith(root) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { res.writeHead(404); return res.end('Not found'); }
-	res.writeHead(200, { 'Content-Type': TYPES[path.extname(f)] || 'application/octet-stream', 'Cache-Control': 'no-cache' });
+	res.writeHead(200, { 'Content-Type': TYPES[path.extname(f)] || 'application/octet-stream', 'Cache-Control': 'no-store' });
 	fs.createReadStream(f).pipe(res);
 }).listen(port, function () { console.log('http://localhost:' + port); });

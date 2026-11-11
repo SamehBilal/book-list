@@ -1,12 +1,12 @@
 /* Service worker: the app works offline and installs.
    - The page: network first (3 s), then the saved copy, then offline.html.
    - Code, styles, fonts, icons: from the cache at once, refreshed in the background.
-   - Covers from Open Library: from the cache once seen, so the lists show them offline.
+   - Covers (Open Library, Google Books, Internet Archive, Wikimedia): from the cache once seen, so the lists show them offline.
    - Searches go to the network only (they need it; the page says so).
    VERSION and PRECACHE are rewritten by tools/build-sw.js — run it after changing files. */
 'use strict';
 
-var VERSION = 'bl-21302f8549';
+var VERSION = 'bl-f9540254ae';
 var PRECACHE = [
 	'./',
 	'index.html',
@@ -60,7 +60,7 @@ self.addEventListener('fetch', function (ev) {
 	if (req.method !== 'GET') return;
 
 	/* covers: cache first, kept (at most 600) */
-	if (url.hostname === 'covers.openlibrary.org' || url.hostname.endsWith('archive.org')) {
+	if (/^(covers\.openlibrary\.org|books\.google\.[a-z.]+|books\.googleusercontent\.com|upload\.wikimedia\.org|commons\.wikimedia\.org)$/.test(url.hostname) || (url.hostname === 'archive.org' && url.pathname.indexOf('/services/img/') === 0) || /^ia\d+\.us\.archive\.org$/.test(url.hostname)) {
 		ev.respondWith(caches.open(COVERS).then(function (c) {
 			return c.match(req).then(function (hit) {
 				if (hit) return hit;

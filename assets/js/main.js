@@ -15,7 +15,7 @@
 		listsLead: 'Drag a book by its grip to reorder it or move it to another list, and tap its title to set its edition, price and stand at the fair. The lists stay on this device; export or share them any time.',
 		planEyebrow: 'Today’s plan', planTitle: 'My fair route',
 		planLead: 'The fair list ordered by hall, then section, then stand number, so you walk each hall once. Tick what you buy and it moves to “Bought”; the bookshops outside the fair come after.',
-		footer: 'Book data and covers from <a href="https://openlibrary.org" target="_blank" rel="noopener">Open Library</a>. Your lists are kept in this browser only.'
+		footer: 'Book data and covers from <a href="https://archive.org" target="_blank" rel="noopener">Internet Archive</a> (with the Bibliotheca Alexandrina’s catalogue), <a href="https://books.google.com" target="_blank" rel="noopener">Google Books</a>, <a href="https://openlibrary.org" target="_blank" rel="noopener">Open Library</a> and <a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a>. Your lists are kept in this browser only.'
 	};
 	var AR = {};
 	function i18n() {

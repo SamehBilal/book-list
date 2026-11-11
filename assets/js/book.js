@@ -28,6 +28,17 @@
 	}
 	function norm(s) { return String(s || '').toLowerCase().replace(/^(دار|مكتبة|منشورات|the)\s+/, '').replace(/[\s.،,]+/g, ' ').trim(); }
 
+	/* where the book was found, and its page there */
+	function links(b) {
+		var out = [];
+		if (b.work) out.push('<a href="https://openlibrary.org' + esc(b.edKey || b.work) + '" target="_blank" rel="noopener">Open Library ↗</a>' + (b.editions > 1 ? ' (' + App.num(b.editions) + L(' طبعة', ' editions') + ')' : ''));
+		if (/^https:\/\/(books\.google\.|play\.google\.)/.test(b.link || '')) out.push('<a href="' + esc(b.link) + '" target="_blank" rel="noopener">Google Books ↗</a>');
+		if (/^https:\/\/(ar\.wikipedia|www\.wikidata)\.org\//.test(b.link || '')) out.push('<a href="' + esc(b.link) + '" target="_blank" rel="noopener">' + (/wikipedia/.test(b.link) ? L('ويكيبيديا', 'Wikipedia') : 'Wikidata') + ' ↗</a>');
+		if (b.bibalex) out.push('<span>' + L('في فهرس مكتبة الإسكندرية', 'In the Bibliotheca Alexandrina’s catalogue') + '</span>');
+		else if ((b.src || []).indexOf('ia') >= 0) out.push('<span>Internet Archive</span>');
+		return out.length ? '<p class="bd-links">' + out.join(' · ') + '</p>' : '';
+	}
+
 	function chips(name, values, chosen, label) {
 		return '<div class="chips-pick" role="radiogroup" aria-label="' + esc(label) + '">' + values.map(function (v) {
 			return '<label><input type="radio" name="' + name + '" value="' + esc(v) + '"' + (String(chosen) === v ? ' checked' : '') + '><span>' + esc(name === 'hall' ? App.num(v) : v) + '</span></label>';
@@ -47,8 +58,7 @@
 					'<p class="eyebrow">' + (isNew ? L('أضف إلى قوائمي', 'Add to my lists') : L('في «', 'In “') + esc(tt(App.LISTS[list])) + L('»', '”')) + '</p>' +
 					'<label class="fld fld-title"><span>' + L('العنوان', 'Title') + '</span><input name="title" required value="' + esc(b.title) + '"></label>' +
 					'<label class="fld"><span>' + L('المؤلف', 'Author') + '</span><input name="authors" value="' + esc((b.authors || []).join(L('، ', ', '))) + '" placeholder="' + esc(L('افصل بين الأسماء بفاصلة', 'Separate names with commas')) + '"></label>' +
-					(b.work ? '<p class="bd-links"><a href="https://openlibrary.org' + esc(b.edKey || b.work) + '" target="_blank" rel="noopener">' + L('في Open Library ↗', 'On Open Library ↗') + '</a>' +
-						(b.editions > 1 ? ' · ' + App.num(b.editions) + L(' طبعة', ' editions') : '') + '</p>' : '') +
+					links(b) +
 				'</div>' +
 				'<button type="button" class="bd-x" data-cancel aria-label="' + esc(L('إغلاق', 'Close')) + '">×</button>' +
 			'</header>' +

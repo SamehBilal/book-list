@@ -62,6 +62,11 @@
 
 	/* ---------- service worker and updates ---------- */
 	if (!('serviceWorker' in navigator) || location.protocol === 'file:') return;
+	/* on this computer (node tools/serve.js) no offline copy, so each change shows at once — unless ?sw=1 */
+	if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) && !/[?&]sw=1/.test(location.search)) {
+		navigator.serviceWorker.getRegistrations().then(function (rs) { rs.forEach(function (r) { r.unregister(); }); });
+		return;
+	}
 	var reloading = false;
 	navigator.serviceWorker.addEventListener('controllerchange', function () { if (reloading) location.reload(); });
 	function offerUpdate(worker) {
