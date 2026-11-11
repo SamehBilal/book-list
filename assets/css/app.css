@@ -340,6 +340,22 @@ html:not([lang="en"]) .chips-pick span { font-family: var(--f-display); }
 .bd-del { margin-inline-start: auto; color: var(--muted); }
 .bd-del:hover { color: var(--ember); }
 
+.bd-reviews { margin-top: 2px; }
+
+/* importing Goodreads shelves */
+.gr-card { width: min(620px, 100%); }
+.gr-head { grid-template-columns: 1fr auto; }
+.gr-head h2 { margin: 0 0 4px; font-family: var(--f-display); font-size: 24px; font-weight: 500; }
+.gr-head .muted { margin: 0; font-size: 15px; }
+.gr-shelves { display: flex; flex-wrap: wrap; gap: 8px; }
+.gr-shelf { position: relative; cursor: pointer; }
+.gr-shelf input { position: absolute; opacity: 0; pointer-events: none; }
+.gr-shelf span { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); color: var(--paper-dim); font-size: 15px; transition: all .15s; }
+.gr-shelf b { font-family: var(--f-latin); font-weight: 600; color: var(--muted); }
+.gr-shelf input:checked + span { background: var(--teal); border-color: var(--teal); color: #08110f; }
+.gr-shelf input:checked + span b { color: #08110f; }
+.gr-shelf input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
+
 /* ---------- the fair route ---------- */
 .pl-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 16px; }
 .pl-count { margin: 0; color: var(--paper-dim); }

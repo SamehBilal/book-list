@@ -36,7 +36,16 @@
 		if (/^https:\/\/(ar\.wikipedia|www\.wikidata)\.org\//.test(b.link || '')) out.push('<a href="' + esc(b.link) + '" target="_blank" rel="noopener">' + (/wikipedia/.test(b.link) ? L('ويكيبيديا', 'Wikipedia') : 'Wikidata') + ' ↗</a>');
 		if (b.bibalex) out.push('<span>' + L('في فهرس مكتبة الإسكندرية', 'In the Bibliotheca Alexandrina’s catalogue') + '</span>');
 		else if ((b.src || []).indexOf('ia') >= 0) out.push('<span>Internet Archive</span>');
-		return out.length ? '<p class="bd-links">' + out.join(' · ') + '</p>' : '';
+		return (out.length ? '<p class="bd-links">' + out.join(' · ') + '</p>' : '') + reviews(b);
+	}
+	/* its readers' reviews and ratings: a search on Goodreads and on Abjjad (أبجد), the Arabic one — neither has an open API */
+	function reviews(b) {
+		if (!b.title) return '';
+		var q = encodeURIComponent((b.title.split(/\s[-–—:/]\s|:\s/)[0] + ' ' + ((b.authors || [])[0] || '')).trim());
+		return '<p class="bd-links bd-reviews">' + L('آراء القرّاء: ', 'Readers’ reviews: ') +
+			'<a href="https://www.goodreads.com/search?q=' + q + '" target="_blank" rel="noopener">Goodreads ↗</a> · ' +
+			'<a href="https://www.abjjad.com/search?kw=' + q + '" target="_blank" rel="noopener">' + L('أبجد', 'Abjjad') + ' ↗</a>' +
+			(b.grId ? ' · <a href="https://www.goodreads.com/book/show/' + encodeURIComponent(b.grId) + '" target="_blank" rel="noopener">' + L('صفحته في Goodreads ↗', 'Its Goodreads page ↗') + '</a>' : '') + '</p>';
 	}
 
 	function chips(name, values, chosen, label) {

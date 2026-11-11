@@ -27,6 +27,11 @@ Arabic — and Egyptian — books are thin on any one open catalogue, so the sea
 | [Open Library](https://openlibrary.org/developers/api) | Editions, ISBNs and covers, mostly translations and older books; its editions list fills a book's card. |
 | [Wikidata](https://www.wikidata.org) | Well-known novels and their writers, in Arabic and English, with links to Arabic Wikipedia. |
 
+**Goodreads** has had no open API since 2020, so it can't be searched. Instead:
+
+- each book's card links to its search on **Goodreads** and on **أبجد (Abjjad)**, the Arabic one, for readers' reviews and ratings;
+- «من Goodreads» under the lists imports your Goodreads library export (My Books → Import and export → Export library → the CSV file): choose the shelves (Want to Read by default, your own shelves too) and the list they go to. Each book comes with its title, authors, publisher, year, pages, ISBN, private notes and its Goodreads page; covers are looked up by ISBN on Open Library; books already in your lists are skipped.
+
 Arabic spellings are tried with and without hamzas (catalogues often drop them). The answers are merged — the same book from two sources becomes one card that takes the best of each (cover, publisher, year, ISBN), marked with the sources it came from — and ranked with Arabic results, library records and books found in several places first.
 
 The drag and drop is the one from the [Ahmed Khaled Tawfik site](https://github.com/samehbilal/ahmed-khaled-tawfik)'s lists, itself adapted from Codrops' *Drag and Drop Interaction Ideas* (the bottom slide), rebuilt on pointer events. The notifications are its Codrops *NotificationFx* (growl, jelly).
@@ -39,7 +44,8 @@ The drag and drop is the one from the [Ahmed Khaled Tawfik site](https://github.
 | `assets/js/core.js` | Language, numbers, the lists' state and storage, a book's place as text |
 | `assets/js/search.js` | The search: the four sources, merging and ranking, Open Library editions |
 | `assets/js/lists.js` | The lists: the bottom panel, dragging covers, the grip, export / import / share |
-| `assets/js/book.js` | A book's card |
+| `assets/js/book.js` | A book's card (with its Goodreads and Abjjad links) |
+| `assets/js/goodreads.js` | Importing a Goodreads library export |
 | `assets/js/plan.js` | The fair route |
 | `assets/js/main.js` | Views, Arabic / English, light / dark, the `?demo=1` sample lists |
 | `assets/js/pwa.js`, `sw.js`, `manifest.webmanifest`, `offline.html` | The app: install button (and the steps on iPhone), update prompt, offline |

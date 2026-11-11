@@ -54,6 +54,7 @@
 			'<button type="button" data-export="txt">' + L('نص', 'Text') + '</button>' +
 			'<button type="button" data-export="copy">' + L('نسخ', 'Copy') + '</button>' +
 			'<label class="ls-import">' + L('استيراد', 'Import') + '<input type="file" accept=".json,application/json"></label>' +
+			'<label class="ls-import" title="' + esc(L('ملف التصدير من Goodreads: My Books ← Import and export ← Export library', 'Your Goodreads export: My Books → Import and export → Export library')) + '">' + L('من Goodreads', 'From Goodreads') + '<input type="file" accept=".csv,text/csv" data-goodreads></label>' +
 			(App.total() ? '<button type="button" class="ls-clear" data-clear>' + L('مسح القوائم', 'Clear lists') + '</button>' : '') +
 		'</footer>';
 	}
@@ -318,7 +319,7 @@
 				var p = b.place || {};
 				out.push({ list: k, title: b.title, authors: (b.authors || []).join('; '), publisher: b.publisher || '', year: b.year || '', edition: b.edition || '', language: b.lang || '', isbn: b.isbn || '', pages: b.pages || '',
 					where: p.where || '', hall: p.hall || '', section: p.sec || '', stand: (p.sec || '') + (p.num || ''), stand_name: p.pub || '', bookshop: p.store || '',
-					price: b.price || '', qty: b.qty || 1, notes: b.notes || '', link: b.edKey ? 'https://openlibrary.org' + b.edKey : b.work ? 'https://openlibrary.org' + b.work : b.link || '', found_in: (b.src || []).join(' '), added: (b.added || '').slice(0, 10) });
+					price: b.price || '', qty: b.qty || 1, notes: b.notes || '', link: b.edKey ? 'https://openlibrary.org' + b.edKey : b.work ? 'https://openlibrary.org' + b.work : b.link || (b.grId ? 'https://www.goodreads.com/book/show/' + b.grId : ''), found_in: (b.src || []).join(' '), added: (b.added || '').slice(0, 10) });
 			});
 		});
 		return out;
@@ -373,7 +374,7 @@
 		var p = x.place || {};
 		return { id: STR(x.id, 80), title: STR(x.title), authors: Array.isArray(x.authors) ? x.authors.map(function (a) { return STR(a, 120); }).filter(Boolean).slice(0, 5) : [],
 			coverId: typeof x.coverId === 'number' ? x.coverId : null, cover: /^https:\/\//.test(x.cover || '') ? STR(x.cover, 500) : '', work: STR(x.work, 60), edKey: STR(x.edKey, 60), link: /^https:\/\//.test(x.link || '') ? STR(x.link, 500) : '',
-			src: Array.isArray(x.src) ? x.src.filter(function (k) { return /^(ol|gb|ia|wd)$/.test(k); }) : [], bibalex: !!x.bibalex,
+			src: Array.isArray(x.src) ? x.src.filter(function (k) { return /^(ol|gb|ia|wd|gr)$/.test(k); }) : [], bibalex: !!x.bibalex, grId: /^\d+$/.test(x.grId || '') ? x.grId : '',
 			publisher: STR(x.publisher), year: STR(x.year, 10), edition: STR(x.edition), lang: STR(x.lang, 5), isbn: STR(x.isbn, 20), pages: STR(x.pages, 6),
 			place: { where: p.where === 'fair' || p.where === 'store' ? p.where : '', hall: STR(p.hall, 2), sec: STR(p.sec, 2), num: STR(p.num, 6), pub: STR(p.pub, 120), store: STR(p.store, 120) },
 			price: STR(x.price, 12), qty: +x.qty > 0 ? Math.min(99, +x.qty) : 1, notes: STR(x.notes, 2000), added: STR(x.added, 30), boughtAt: STR(x.boughtAt, 30) || undefined };
@@ -381,6 +382,7 @@
 	function onImport(ev) {
 		var input = ev.target;
 		if (input.type !== 'file' || !input.files || !input.files[0]) return;
+		if (input.hasAttribute('data-goodreads')) { window.Goodreads.importFile(input.files[0]); input.value = ''; return; }
 		var reader = new FileReader();
 		reader.onload = function () {
 			try {
