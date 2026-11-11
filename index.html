@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+	<title>قائمة الكتب — للمعرض والمكتبة</title>
+	<meta name="description" content="قائمة الكتب التي تريد شراءها من معرض الكتاب أو من المكتبة: ابحث بالعنوان أو المؤلف، واسحب الغلاف إلى قائمتك، وسجّل الناشر والطبعة ومكانها في المعرض (القاعة والجناح). — Your book-buying list for the book fair or the bookshop.">
+	<link rel="icon" href="assets/img/icons/favicon-32.png" sizes="32x32" type="image/png">
+	<link rel="icon" href="assets/img/icon.svg" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="assets/img/icons/apple-touch-icon.png" sizes="180x180">
+	<link rel="manifest" href="manifest.webmanifest">
+	<meta name="theme-color" content="#101418">
+	<meta name="color-scheme" content="dark light">
+	<meta name="application-name" content="قائمة الكتب">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-title" content="قائمة الكتب">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="author" content="Sameh Bilal">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="قائمة الكتب — للمعرض والمكتبة">
+	<meta property="og:description" content="ابحث عن الكتب واسحبها إلى قائمتك، ورتّب جولتك في معرض الكتاب قاعةً قاعة. — Plan what to buy at the book fair, hall by hall.">
+	<meta property="og:image" content="assets/img/screens/wide-search.jpg">
+	<link rel="preload" href="assets/fonts/NotoNaskhArabic-arabic-7.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="assets/fonts/ReemKufi-arabic-10.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preconnect" href="https://openlibrary.org">
+	<link rel="preconnect" href="https://covers.openlibrary.org">
+	<link rel="stylesheet" href="assets/css/fonts.css">
+	<link rel="stylesheet" href="assets/css/app.css">
+	<link rel="stylesheet" href="assets/css/lists.css">
+	<link rel="stylesheet" href="assets/css/notify.css">
+	<script>try{var h=document.documentElement,l=localStorage.getItem('bl-lang'),t=localStorage.getItem('bl-theme');if(l==='en'){h.lang='en';h.dir='ltr';}if(t==='light'||(!t&&matchMedia('(prefers-color-scheme: light)').matches))h.setAttribute('data-theme','light');}catch(e){}</script>
+</head>
+<body>
+	<a class="skip" href="#main" data-i18n="skip">انتقل إلى المحتوى</a>
+	<header class="site-header">
+		<div class="wrap">
+			<a class="brand" href="#search">
+				<img src="assets/img/icon.svg" alt="" width="34" height="34">
+				<span class="brand-t" data-i18n="brand">قائمة الكتب</span>
+			</a>
+			<nav class="nav" aria-label="الأقسام" data-i18n-aria="nav">
+				<a href="#search" data-view="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L20 20"/></svg><span data-i18n="navSearch">ابحث</span></a>
+				<a href="#lists" data-view="lists"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg><span data-i18n="navLists">قوائمي</span><b class="nav-n" hidden></b></a>
+				<a href="#plan" data-view="plan"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V9l9-5 9 5v11M7 20v-6h4v6M15 12h2"/></svg><span data-i18n="navPlan">جولة المعرض</span></a>
+			</nav>
+			<div class="tools">
+				<button type="button" class="icon-btn theme-toggle" aria-label="المظهر" data-i18n-aria="theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+				<button type="button" class="lang-toggle" lang="en">EN</button>
+			</div>
+		</div>
+	</header>
+
+	<main id="main">
+		<!-- search -->
+		<section class="view" id="view-search" data-view="search">
+			<div class="hero">
+				<div class="wrap">
+					<p class="eyebrow" data-i18n="eyebrow">معرض الكتاب · المكتبة</p>
+					<h1 data-i18n="title">ماذا ستشتري هذا العام؟</h1>
+					<p class="lead" data-i18n="lead">ابحث عن كتاب بعنوانه أو باسم مؤلفه، ثم اسحب غلافه إلى قائمة: من المعرض، أو من مكتبة، أو ربما لاحقًا. سجّل الناشر والطبعة ومكان الجناح (القاعة ١–٦، والقسم A أو B أو C) لتمشي في المعرض بخطة.</p>
+					<form class="search" role="search" autocomplete="off">
+						<div class="search-row">
+							<label class="visually-hidden" for="q" data-i18n="qLabel">ابحث عن كتاب</label>
+							<input id="q" name="q" type="search" enterkeyhint="search" placeholder="عنوان الكتاب أو اسم المؤلف أو ISBN" data-i18n-ph="qPh">
+							<button type="submit" class="btn btn-primary"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L20 20"/></svg><span data-i18n="go">ابحث</span></button>
+						</div>
+						<div class="search-opts">
+							<div class="seg" role="radiogroup" aria-label="ابحث في" data-i18n-aria="searchIn">
+								<label><input type="radio" name="by" value="all" checked><span data-i18n="byAll">الكل</span></label>
+								<label><input type="radio" name="by" value="title"><span data-i18n="byTitle">العنوان</span></label>
+								<label><input type="radio" name="by" value="author"><span data-i18n="byAuthor">المؤلف</span></label>
+							</div>
+							<label class="sel"><span data-i18n="langLabel">اللغة</span>
+								<select name="lang">
+									<option value="" data-i18n="langAny">أي لغة</option>
+									<option value="ara" data-i18n="langAr">العربية</option>
+									<option value="eng" data-i18n="langEn">الإنجليزية</option>
+									<option value="fre" data-i18n="langFr">الفرنسية</option>
+								</select>
+							</label>
+							<button type="button" class="btn btn-ghost" data-manual><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="manual">أضف كتابًا يدويًا</span></button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="wrap">
+				<p class="status" id="status" aria-live="polite"></p>
+				<div class="results" id="results"></div>
+				<div class="more-row"><button type="button" class="btn btn-ghost" id="more" hidden data-i18n="more">المزيد</button></div>
+				<div class="hint-empty" id="hint-empty">
+					<p data-i18n="tryLabel">جرّب:</p>
+					<div class="chips" id="try"></div>
+				</div>
+			</div>
+		</section>
+
+		<!-- my lists -->
+		<section class="view" id="view-lists" data-view="lists" hidden>
+			<div class="page-head"><div class="wrap">
+				<p class="eyebrow" data-i18n="listsEyebrow">على جهازك</p>
+				<h1 data-i18n="listsTitle">قوائمي</h1>
+				<p class="lead" data-i18n="listsLead">اسحب أي كتاب من مقبضه لترتيبه أو لنقله إلى قائمة أخرى، واضغط على عنوانه لتعديل الطبعة والسعر ومكانه في المعرض. تبقى القوائم على جهازك، ويمكنك تصديرها أو مشاركتها.</p>
+			</div></div>
+			<div class="wrap"><div id="lists-mount"></div></div>
+		</section>
+
+		<!-- the fair route -->
+		<section class="view" id="view-plan" data-view="plan" hidden>
+			<div class="page-head"><div class="wrap">
+				<p class="eyebrow" data-i18n="planEyebrow">خطة اليوم</p>
+				<h1 data-i18n="planTitle">جولتي في المعرض</h1>
+				<p class="lead" data-i18n="planLead">كتب قائمة المعرض مرتبةً بالقاعة ثم القسم ثم رقم الجناح، لتمر على كل قاعة مرة واحدة. علّم ما اشتريته فينتقل إلى «اشتريته»، وتحتها كتب المكتبات خارج المعرض.</p>
+			</div></div>
+			<div class="wrap"><div id="plan-mount"></div></div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="wrap">
+			<p data-i18n="footer">البيانات والأغلفة من <a href="https://openlibrary.org" target="_blank" rel="noopener">Open Library</a>. قوائمك محفوظة في هذا المتصفح فقط.</p>
+			<p class="ft-tools"></p>
+		</div>
+	</footer>
+
+	<script src="assets/js/core.js"></script>
+	<script src="assets/js/notify.js"></script>
+	<script src="assets/js/search.js"></script>
+	<script src="assets/js/book.js"></script>
+	<script src="assets/js/lists.js"></script>
+	<script src="assets/js/plan.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script src="assets/js/pwa.js"></script>
+</body>
+</html>

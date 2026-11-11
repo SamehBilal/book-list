@@ -1,0 +1,168 @@
+/* =========================================================
+   My lists — the bottom slide panel and the lists page.
+   After the Ahmed Khaled Tawfik site's lists, adapted from
+   Codrops' "Drag and Drop Interaction Ideas" (bottom slide):
+   dragging a cover slides a panel up from the bottom with the
+   lists to drop it on. The same panel opens from the button in
+   the corner to browse, reorder, remove and export.
+   ========================================================= */
+
+/* the button in the corner */
+.ls-fab {
+	position: fixed; z-index: 880; bottom: 18px; inset-inline-end: 18px;
+	display: inline-flex; align-items: center; gap: 8px;
+	padding: 10px 16px; border-radius: 999px; cursor: pointer;
+	background: var(--ink-3); color: var(--paper); border: 1px solid var(--line);
+	box-shadow: 0 8px 24px rgba(0, 0, 0, .35);
+	font-family: var(--f-display); font-size: 15px;
+	transition: transform .2s, background .2s, opacity .2s;
+}
+.ls-fab:hover, .ls-fab:focus-visible { background: var(--ember); color: #fff; outline: none; transform: translateY(-2px); }
+.ls-fab svg { width: 20px; height: 20px; }
+.ls-fab-n { min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; background: var(--ember); color: #fff; font-size: 13px; line-height: 22px; text-align: center; }
+.ls-fab:hover .ls-fab-n { background: var(--ink); }
+body.ls-drag-active .ls-fab, body[data-view="lists"] .ls-fab { opacity: 0; pointer-events: none; }
+/* phones have «My lists» in the bar at the bottom */
+@media (max-width: 760px) { .ls-fab { display: none; } }
+
+/* the panel slides up from below the window */
+.ls-panel {
+	position: fixed; z-index: 990; top: 100%; left: 0; width: 100%; height: 100%;
+	background: var(--ink-2); color: var(--paper); overflow: auto; overscroll-behavior: contain;
+	border-top: 3px solid var(--ember);
+	transform: translate3d(0, 20px, 0); visibility: hidden;
+	transition: transform .5s cubic-bezier(.6, 0, .4, 1), visibility 0s .5s;
+}
+.ls-panel.show { transform: translate3d(0, -100%, 0); visibility: visible; transition: transform .5s cubic-bezier(.6, 0, .4, 1); }
+.ls-inner {
+	width: min(980px, 100% - 32px); margin: 0 auto; padding: calc(24px + env(safe-area-inset-top)) 0 90px;
+	transform: translate3d(0, 50%, 0); transition: transform .4s .3s;
+}
+.ls-panel.show .ls-inner { transform: none; }
+
+/* while dragging the panel only shows the drop zones, a little lower down */
+body.ls-dragging .ls-panel { top: 100%; height: 66%; border-radius: 22px 22px 0 0; }
+body.ls-dragging .ls-panel.show { transform: translate3d(0, -100%, 0); }
+body.ls-dragging .ls-panel .ls-items, body.ls-dragging .ls-panel .ls-tools, body.ls-dragging .ls-panel .ls-sum,
+body.ls-dragging .ls-panel .ls-close, body.ls-dragging .ls-panel .ls-open-page, body.ls-dragging .ls-panel .ls-hint-browse, body.ls-dragging .ls-panel .ls-empty { display: none; }
+body.ls-dragging .ls-inner { padding-top: 22px; }
+.ls-hint-drag { display: none; }
+body.ls-dragging .ls-hint-drag { display: block; }
+
+.ls-overlay { position: fixed; inset: 0; z-index: 985; background: rgba(0, 0, 0, .45); opacity: 0; pointer-events: none; transition: opacity .3s; }
+.ls-overlay.show { opacity: 1; pointer-events: auto; }
+body.ls-dragging .ls-overlay { pointer-events: none; }
+
+.ls-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.ls-head h2 { margin: 0; font-family: var(--f-display); font-size: 28px; }
+.ls-open-page { margin-inline-start: auto; font-family: var(--f-display); font-size: 15px; }
+.ls-close { width: 40px; height: 40px; border-radius: 50%; cursor: pointer; background: none; border: 1px solid var(--line); color: var(--paper); font-size: 24px; line-height: 1; }
+.ls-close:hover { border-color: var(--ember); color: var(--ember); }
+.ls-hint { margin: 10px 0 22px; color: var(--paper-dim); }
+body.ls-dragging .ls-hint { font-family: var(--f-display); font-size: 18px; color: var(--paper); text-align: center; margin-top: 4px; }
+body.ls-dragging .ls-panel .ls-head { justify-content: center; }
+
+/* the lists (drop zones) */
+.ls-zones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: start; }
+.ls-zone {
+	position: relative; padding: 16px 18px; border-radius: 14px;
+	background: var(--ink); border: 1px solid var(--line);
+	transition: transform .3s, background .3s, border-color .3s;
+}
+.ls-zone-fair { --zc: var(--teal); }
+.ls-zone-store { --zc: var(--ember); }
+.ls-zone-maybe { --zc: var(--gold); }
+.ls-zone-bought { --zc: var(--paper-dim); }
+body.ls-dragging .ls-panel .ls-zones { align-items: stretch; }
+body.ls-dragging .ls-panel .ls-zone { min-height: 150px; display: flex; align-items: center; justify-content: center; border: 2px dashed color-mix(in srgb, var(--paper) 25%, transparent); }
+.ls-zone.highlight { background: color-mix(in srgb, var(--zc) 22%, var(--ink)); border-color: var(--zc) !important; transform: scale3d(1.04, 1.04, 1); }
+.ls-zone h3 { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; font-family: var(--f-display); font-size: 19px; }
+body.ls-dragging .ls-panel .ls-zone h3 { margin: 0; font-size: 24px; flex-direction: column; }
+.ls-zone h3 svg { width: 22px; height: 22px; color: var(--zc); }
+body.ls-dragging .ls-panel .ls-zone h3 svg { width: 40px; height: 40px; }
+.ls-zone h3 b { margin-inline-start: auto; font-family: var(--f-latin); color: var(--paper-dim); font-weight: 600; }
+body.ls-dragging .ls-panel .ls-zone h3 b { margin: 0; }
+.ls-empty { margin: 0; color: var(--muted); font-size: 14px; }
+.ls-sum { margin: 10px 0 0; padding-top: 8px; border-top: 1px dashed var(--line); text-align: end; color: var(--paper-dim); font-size: 14px; }
+.ls-sum b { color: var(--paper); font-family: var(--f-display); font-weight: 500; }
+
+/* the check after a drop */
+.ls-check { position: absolute; top: 10px; inset-inline-end: 14px; font-size: 34px; color: var(--zc); opacity: 0; transform: scale3d(.5, .5, 1); transition: opacity .3s, transform .3s; pointer-events: none; }
+.ls-zone.drop-feedback .ls-check { opacity: 1; transform: none; }
+
+.ls-items { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+.ls-item { display: flex; align-items: center; gap: 10px; }
+.ls-thumb { flex: none; width: 36px; padding: 0; border: 0; background: none; cursor: pointer; }
+.ls-thumb .cover-t { display: none; }
+.ls-item-t { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.35; }
+.ls-title {
+	padding: 0; border: 0; background: none; cursor: pointer; text-align: start; color: var(--paper);
+	font-family: var(--f-display); font-size: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%;
+}
+.ls-title:hover { color: var(--ember); }
+.ls-item-t small { color: var(--paper-dim); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ls-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }
+.tag { padding: 0 8px; border-radius: 999px; font-size: 12px; line-height: 20px; color: var(--paper-dim); border: 1px solid var(--line); background: none; }
+.tag-place { color: var(--zc, var(--teal)); border-color: color-mix(in srgb, var(--zc, var(--teal)) 45%, transparent); font-weight: 600; }
+.tag-need { cursor: pointer; color: var(--gold); border-style: dashed; border-color: color-mix(in srgb, var(--gold) 55%, transparent); }
+.tag-need:hover { background: color-mix(in srgb, var(--gold) 14%, transparent); }
+.ls-x { flex: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; background: none; border: 1px solid transparent; color: var(--muted); font-size: 18px; line-height: 1; }
+.ls-x:hover, .ls-x:focus-visible { border-color: var(--line); color: var(--ember); }
+
+/* rearranging: the grip, the gap left behind, the copy under the pointer */
+.ls-grip {
+	flex: none; width: 22px; height: 40px; padding: 0; border: 0; border-radius: 4px; cursor: grab;
+	background: none; color: var(--muted); touch-action: none; display: flex; align-items: center; justify-content: center;
+}
+.ls-grip svg { width: 10px; height: 18px; stroke: none; }
+.ls-grip:hover, .ls-grip:focus-visible { color: var(--paper); background: var(--ink-3); outline: none; }
+.ls-grip:focus-visible { box-shadow: 0 0 0 2px var(--gold); }
+.ls-item.ls-placeholder { opacity: .35; outline: 1px dashed var(--paper-dim); outline-offset: 2px; border-radius: 6px; }
+.ls-sort-ghost {
+	position: fixed; top: 0; left: 0; z-index: 1001; pointer-events: none; margin: 0;
+	display: flex; align-items: center; gap: 10px; padding: 6px 8px; border-radius: 8px;
+	background: var(--ink-3); border: 1px solid var(--ember); box-shadow: 0 14px 28px rgba(0, 0, 0, .45);
+	list-style: none; color: var(--paper);
+}
+.ls-sort-ghost .ls-x { visibility: hidden; }
+body.ls-sorting, body.ls-sorting * { cursor: grabbing !important; user-select: none; -webkit-user-select: none; }
+.ls-zone.sort-target { border-color: color-mix(in srgb, var(--zc) 60%, var(--line)); }
+body.ls-sorting .ls-zone .ls-items { min-height: 48px; }
+
+/* export / import */
+.ls-tools { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.ls-tools-l { font-family: var(--f-display); color: var(--paper-dim); margin-inline-end: 4px; }
+.ls-tools button, .ls-import { font-family: var(--f-display); font-size: 14px; cursor: pointer; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: none; color: var(--paper); }
+.ls-tools button:hover, .ls-import:hover, .ls-import:focus-within { border-color: var(--ember); color: var(--ember); }
+.ls-import { position: relative; overflow: hidden; }
+.ls-import input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.ls-clear { margin-inline-start: auto; color: var(--muted) !important; }
+
+/* the cover following the pointer */
+.ls-ghost { --w: 84px; position: fixed; top: 0; left: 0; z-index: 1001; width: var(--w); pointer-events: none; box-shadow: 0 18px 30px rgba(0, 0, 0, .5); border-radius: 4px; transition: opacity .3s; }
+.ls-ghost .cover { width: 100%; }
+.ls-ghost.is-dropped { opacity: 0; }
+body.ls-drag-active { user-select: none; -webkit-user-select: none; cursor: grabbing; }
+
+/* a list's share button, in its heading */
+.ls-zone h3 .ls-share { display: inline-grid; place-items: center; width: 30px; height: 30px; padding: 0; border-radius: 50%; cursor: pointer; border: 1px solid var(--line); background: none; color: var(--paper-dim); }
+.ls-zone h3 .ls-share svg { width: 15px; height: 15px; stroke-width: 1.8; color: inherit; }
+.ls-zone h3 .ls-share:hover { border-color: var(--ember); color: var(--ember); }
+body.ls-dragging .ls-panel .ls-zone h3 .ls-share { display: none; }
+
+/* the lists page: the same lists, always open */
+.ls-inpage { padding: 0 0 10px; }
+.ls-inpage .ls-zone { background: var(--ink-2); }
+.ls-welcome { margin: 0 0 20px; padding: 16px 20px; border-radius: var(--radius); border: 1px dashed var(--line); color: var(--paper-dim); }
+
+@media (max-width: 760px) {
+	/* minmax(0, …): a long title is cut with … instead of pushing past the phone's edge */
+	.ls-zones { grid-template-columns: minmax(0, 1fr); }
+	body.ls-dragging .ls-panel .ls-zones { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+	body.ls-dragging .ls-panel .ls-zone { min-height: 120px; }
+	body.ls-dragging .ls-panel .ls-zone h3 { font-size: 18px; }
+	body.ls-dragging .ls-panel { height: 62%; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.ls-panel, .ls-panel.show, .ls-inner, .ls-zone, .ls-check { transition: none; }
+}

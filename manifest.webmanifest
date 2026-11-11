@@ -1,0 +1,124 @@
+{
+	"id": "./",
+	"name": "قائمة الكتب — للمعرض والمكتبة",
+	"short_name": "قائمة الكتب",
+	"description": "قائمة الكتب التي تريد شراءها من معرض الكتاب أو من المكتبة: ابحث بالعنوان أو المؤلف، واسحب الغلاف إلى قائمتك، وسجّل الناشر والطبعة ومكانها في المعرض، ثم امشِ في المعرض قاعةً قاعة — يعمل دون إنترنت. — Your book-buying list for the book fair or the bookshop: search by title or author, drag covers to your lists, note the publisher, edition and stand, and walk the fair hall by hall — offline too.",
+	"lang": "ar",
+	"dir": "rtl",
+	"start_url": "./index.html?source=pwa",
+	"scope": "./",
+	"display": "standalone",
+	"display_override": [
+		"standalone",
+		"minimal-ui"
+	],
+	"orientation": "any",
+	"background_color": "#101418",
+	"theme_color": "#101418",
+	"categories": [
+		"books",
+		"shopping",
+		"productivity"
+	],
+	"icons": [
+		{
+			"src": "assets/img/icons/icon-192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "assets/img/icons/icon-512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "assets/img/icons/maskable-192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "maskable"
+		},
+		{
+			"src": "assets/img/icons/maskable-512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable"
+		}
+	],
+	"shortcuts": [
+		{
+			"name": "ابحث عن كتاب",
+			"short_name": "ابحث",
+			"description": "Search — by title, author or ISBN",
+			"url": "./index.html?source=pwa#search",
+			"icons": [{ "src": "assets/img/icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+		},
+		{
+			"name": "قوائمي",
+			"short_name": "قوائمي",
+			"description": "My lists — at the fair, from a bookshop, maybe, bought",
+			"url": "./index.html?source=pwa#lists",
+			"icons": [{ "src": "assets/img/icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+		},
+		{
+			"name": "جولتي في المعرض",
+			"short_name": "جولة المعرض",
+			"description": "Fair route — hall by hall, stand by stand",
+			"url": "./index.html?source=pwa#plan",
+			"icons": [{ "src": "assets/img/icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+		}
+	],
+	"screenshots": [
+		{
+			"src": "assets/img/screens/wide-search.jpg",
+			"sizes": "1280x720",
+			"type": "image/jpeg",
+			"form_factor": "wide",
+			"label": "ابحث — Search"
+		},
+		{
+			"src": "assets/img/screens/wide-drag.jpg",
+			"sizes": "1280x720",
+			"type": "image/jpeg",
+			"form_factor": "wide",
+			"label": "اسحب الغلاف إلى قائمة — Drag a cover to a list"
+		},
+		{
+			"src": "assets/img/screens/wide-plan.jpg",
+			"sizes": "1280x720",
+			"type": "image/jpeg",
+			"form_factor": "wide",
+			"label": "جولتي في المعرض — Fair route"
+		},
+		{
+			"src": "assets/img/screens/narrow-search.jpg",
+			"sizes": "412x915",
+			"type": "image/jpeg",
+			"form_factor": "narrow",
+			"label": "ابحث — Search"
+		},
+		{
+			"src": "assets/img/screens/narrow-lists.jpg",
+			"sizes": "412x915",
+			"type": "image/jpeg",
+			"form_factor": "narrow",
+			"label": "قوائمي — My lists"
+		},
+		{
+			"src": "assets/img/screens/narrow-plan.jpg",
+			"sizes": "412x915",
+			"type": "image/jpeg",
+			"form_factor": "narrow",
+			"label": "جولتي في المعرض — Fair route"
+		},
+		{
+			"src": "assets/img/screens/narrow-book.jpg",
+			"sizes": "412x915",
+			"type": "image/jpeg",
+			"form_factor": "narrow",
+			"label": "مكان الكتاب في المعرض — A book’s stand"
+		}
+	],
+	"prefer_related_applications": false
+}
