@@ -14,7 +14,7 @@
 	/* the browser bar follows the theme */
 	function syncThemeColor() {
 		var m = document.querySelector('meta[name="theme-color"]');
-		if (m) m.setAttribute('content', html.getAttribute('data-theme') === 'light' ? '#f3ecdd' : '#101418');
+		if (m) m.setAttribute('content', html.getAttribute('data-theme') === 'light' ? '#f4f1ea' : '#0f1724');
 	}
 	new MutationObserver(syncThemeColor).observe(html, { attributes: true, attributeFilter: ['data-theme'] });
 	syncThemeColor();

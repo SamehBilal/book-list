@@ -16,11 +16,11 @@
 	font-family: var(--f-display); font-size: 15px; line-height: 1.45;
 	border-inline-start: 5px solid var(--ember);
 }
-html[data-theme="light"] .ns-box { background: #2a1f17; color: #f6efe0; }
+html[data-theme="light"] .ns-box { background: #142033; color: #eef2f8; }
 .ns-box p { margin: 0; }
 .ns-box a { color: inherit; font-weight: 700; text-decoration: underline; }
 .ns-box .ns-title { display: block; font-size: 12px; letter-spacing: .02em; opacity: .7; margin-bottom: 2px; }
-.ns-type-success { border-inline-start-color: #3f9c6d; }
+.ns-type-success { border-inline-start-color: var(--teal, #33c49a); }
 .ns-type-warning { border-inline-start-color: var(--gold); }
 .ns-type-error { border-inline-start-color: var(--blood, #b3261e); }
 .ns-close {

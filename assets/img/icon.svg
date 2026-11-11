@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 	<defs>
 		<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-			<stop offset="0" stop-color="#1f262e"/>
-			<stop offset="1" stop-color="#0c0f12"/>
+			<stop offset="0" stop-color="#1e2c44"/>
+			<stop offset="1" stop-color="#0a111c"/>
 		</linearGradient>
 		<linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
 			<stop offset="0" stop-color="#f6eedb"/>
@@ -11,16 +11,16 @@
 	</defs>
 	<rect width="512" height="512" rx="112" fill="url(#bg)"/>
 	<!-- a stack of three books -->
-	<rect x="118" y="330" width="276" height="44" rx="8" fill="#4fb3a2"/>
-	<rect x="118" y="330" width="22" height="44" rx="6" fill="#2b7f71"/>
-	<rect x="138" y="284" width="250" height="44" rx="8" fill="#d9a441"/>
-	<rect x="366" y="284" width="22" height="44" rx="6" fill="#a8741c"/>
+	<rect x="118" y="330" width="276" height="44" rx="8" fill="#33c49a"/>
+	<rect x="118" y="330" width="22" height="44" rx="6" fill="#17886a"/>
+	<rect x="138" y="284" width="250" height="44" rx="8" fill="#f2b84b"/>
+	<rect x="366" y="284" width="22" height="44" rx="6" fill="#b07c12"/>
 	<!-- the open book on top -->
 	<path d="M256 162c-36-26-86-34-136-26v148c50-8 100 0 136 26z" fill="url(#pg)"/>
 	<path d="M256 162c36-26 86-34 136-26v148c-50-8-100 0-136 26z" fill="url(#pg)"/>
 	<path d="M256 162v148" stroke="#b9a989" stroke-width="5"/>
 	<path d="M150 186c30-3 60 2 84 14M150 216c30-3 60 2 84 14M150 246c30-3 60 2 84 14M278 200c24-12 54-17 84-14M278 230c24-12 54-17 84-14" stroke="#b9a989" stroke-width="7" stroke-linecap="round" fill="none"/>
 	<!-- the bookmark -->
-	<path d="M316 120h44v96l-22-18-22 18z" fill="#e0633a"/>
+	<path d="M316 120h44v96l-22-18-22 18z" fill="#4f86f7"/>
 	<rect x="118" y="384" width="276" height="12" rx="6" fill="#000" opacity=".25"/>
 </svg>

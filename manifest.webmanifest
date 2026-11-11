@@ -13,8 +13,8 @@
 		"minimal-ui"
 	],
 	"orientation": "any",
-	"background_color": "#101418",
-	"theme_color": "#101418",
+	"background_color": "#0f1724",
+	"theme_color": "#0f1724",
 	"categories": [
 		"books",
 		"shopping",
